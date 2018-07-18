@@ -12,3 +12,12 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+//El archivo webpack.min.js compacta y envia a la carpeta publica
+//es necesario node.js
+//instalar dependencias
+
+//npm install
+
+//npm run dev 	//compacta de modo desarrollo js y css
+//npm run watch //compacta cuando hay cambios

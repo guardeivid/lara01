@@ -7,14 +7,23 @@ use App\Post;
 
 class PostController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        return view('posts.index');
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
-    public function show($id)
+    public function index()
     {
-        return view('posts.show'/*, compact('post')*/);
+        //$posts = Post::all();
+        //latest(column = 'created_at') = orderBy(column, 'desc')
+        $posts = Post::latest()->get();
+        return view('posts.index', compact('posts'));
+    }
+
+    public function show(Post $post)
+    {
+        //$post = Post::find($id);
+        return view('posts.show', compact('post'));
     }
 
     public function create()
@@ -24,6 +33,12 @@ class PostController extends Controller
 
     public function store()
     {
+        //validar formulario
+        $this->validate(request(), [
+            'title' => 'required',
+            'body' => 'required'
+        ]);
+
         //dd(request()->all());
         //request()->all()
         //request('title')
@@ -37,10 +52,15 @@ class PostController extends Controller
         $post->save();*/
 
         //Metodo 2, requiere $fillable
-        Post::create([
-            "title" => request('title'),
-            "body"  => request('body')
-        ]);
+        /*Post::create([
+            "title"     => request('title'),
+            "body"      => request('body'),
+            "user_id"   => auth()->id()     //auth()->user->id
+        ]);*/
+
+        auth()->user()->publish(
+            new Post(request(['title', 'body']))
+        );
 
         //Metodo 3, requiere $fillable
         //Post::create(request()->all());

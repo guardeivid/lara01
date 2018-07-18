@@ -13,9 +13,12 @@
     		</div>
     		<div class="form-group">
     			<label for="body">Body</label>
-    			<textarea name="body" id="body" class="form-control" rows="3" required="required"></textarea>
+    			<textarea name="body" id="body" class="form-control" rows="3"></textarea>
     		</div>
-    		<button type="submit" class="btn btn-primary">Publish</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Publish</button>
+            </div>    		
+            @include('layouts.error')
     	</form>
     </div>
 @endsection

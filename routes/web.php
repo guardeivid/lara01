@@ -119,10 +119,12 @@ Route::get('/', function () {
 
 
 //php artisan make:model Post -mc
-Route::get('posts', 'PostController@index');
+Route::get('posts', 'PostController@index')->name('home');
 Route::get('posts/create', 'PostController@create');
 Route::post('posts', 'PostController@store');
-//Route::get('posts/{post}', 'PostController@show');
+Route::get('posts/{post}', 'PostController@show');
+
+Route::post('posts/{post}/comments', 'CommentController@store');
 
 
 
@@ -135,3 +137,25 @@ Route::post('posts', 'PostController@store');
 //GET       /posts/{id}           show()
 //PATCH     /posts/{id}           update()
 //DELETE    /posts/{id}           destroy()
+
+
+//para usar autorizacion, de una instalacion limpia
+//php artisan auth
+
+//web.php
+//Auth::routes();
+
+//Controller en constructor con
+//$this->middleware('auth');
+
+//crea vistas con login y register
+
+Route::get('register', 'RegistrationController@create');
+Route::post('register', 'RegistrationController@store');
+
+Route::get('login', 'SessionController@create');
+Route::post('login', 'SessionController@store');
+Route::get('logout', 'SessionController@destroy');
+
+//php artisan make:controller RegistrationController
+//php artisan make:controller SessionController
