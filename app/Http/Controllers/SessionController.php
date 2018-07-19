@@ -8,7 +8,8 @@ class SessionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'destroy']);
+        //guest es para usuarios no autorizados
+        $this->middleware('guest', ['except' => ['destroy','create','store']]);
     }
 
     public function create()
@@ -18,19 +19,22 @@ class SessionController extends Controller
 
     public function store()
     {
+        auth()->logout();
+
         //intentar autenticar el usuario
         if (! auth()->attempt(request(['email', 'password']))) {
             return back()->withErrors([
                 'message' => 'Por favor verifica tus credenciales e intentalo de nuevo.'
             ]);
-        }
+        };
 
-        return redirect()->home();
+        return redirect()->route('home');
     }
 
     public function destroy()
     {
         auth()->logout();
-        return redirect()->home();
+        //dd(route('home'));
+        return redirect()->route('home');
     }
 }

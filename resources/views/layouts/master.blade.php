@@ -21,6 +21,12 @@
 
     @include('layouts.nav')
 
+    @if ($flash = session('messagge'))
+      <div id="flash-message " class="alert alert-success" role="alert">
+       {{ $flash }}
+      </div>
+    @endif    
+
     <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
         <div class="col-md-6 px-0">
           <h1 class="display-4 font-italic">The Bootstrap blog</h1>
@@ -31,7 +37,7 @@
       <div class="row">
         @yield('content')
 
-        @include('layouts.aside')
+        @include('layouts.sidebar')
       </div>
     </div>
 

@@ -4,8 +4,16 @@
 @section('content')
 <div class="col-md-8 blog-main">
 	<h1>{{ $post->title }}</h1>
-	{{ $post->body }}
+    @if (count($post->tags))
+        @foreach($post->tags as $tag)                
+            <a href="/lara01/public/posts/tags/{{ $tag->name }}" class="badge badge-primary">{{ $tag->name }}</a>
+        @endforeach
+        <hr>
+    @endif
+
+	{{ $post->body }}    
     <hr>
+
     <div class="comments">
         <ul class="list-group">
             @foreach($post->comments as $comment)                
@@ -16,7 +24,6 @@
             @endforeach
         </ul>
     </div>
-
     <hr>
 
     {{-- Agregar un comentario --}}

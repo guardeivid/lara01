@@ -13,6 +13,20 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+#flash-message {
+    bottom: 20px;
+    position: absolute;
+    right: 20px;
+    z-index: 10;
+    animation: flash-message 4s forwards;
+}
+
+@keyframes flash-message {
+    0%   {opacity: 1;}
+    100% {opacity: 0; display:none;}
+}
+
+
 //El archivo webpack.min.js compacta y envia a la carpeta publica
 //es necesario node.js
 //instalar dependencias
